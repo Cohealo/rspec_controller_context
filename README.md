@@ -78,8 +78,7 @@ example of setting parameters:
     describe "example" do
       request_config Iam: {a: 'parameter'}
       it "should blah" do
-        make_request # the controller will see params = {Iam: {a:
-'parameter'}}
+        make_request # the controller will see params = {Iam: {a: 'parameter'}}
       end
     end
 
@@ -178,7 +177,6 @@ It can also be passed any of the config (besides procs) as
       request_config id: 123
       it "should override id" do
         make_request id: 4 # the controller will see params = {id: 4}
-'parameter'}}
       end
     end
 
