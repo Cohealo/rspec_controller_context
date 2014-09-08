@@ -34,7 +34,7 @@ Then configure it in `spec/spec_helper.rb` like this:
 
     Rspec.configure do |config|
       ...
-      config.include RspecControllerContext::ControllerDriver :type => :controller
+      config.include RspecControllerContext::ControllerDriver, :type => :controller
       ...
     end
 
