@@ -198,3 +198,5 @@ Support for integration and request specs.
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+[ ![Codeship Status for Cohealo/rspec_controller_context](https://www.codeship.io/projects/b1484d30-1b82-0132-bf12-6e0af01cea2b/status)](https://www.codeship.io/projects/34949)
