@@ -1,4 +1,5 @@
 require File.expand_path('../../lib/rspec_controller_context', __FILE__)
+require 'rspec/its'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

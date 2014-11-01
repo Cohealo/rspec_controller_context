@@ -1,8 +1,18 @@
-RSpec.describe RspecControllerContext::ControllerDriver do
+RSpec.describe RspecControllerContext::ControllerHelper do
   let(:example_group) do
-    Class.new { include RspecControllerContext::ControllerDriver }
+    Class.new do
+      extend RspecControllerContext
+      include RspecControllerContext::ControllerHelper
+    end
   end
   subject(:example) { example_group.new }
+
+  describe "included hook" do
+    it "should setup buildable option" do
+      expect(example_group).to respond_to :request_config
+      expect(example).to respond_to :request_config
+    end
+  end
 
   describe "#make_request" do
     it "should make request" do

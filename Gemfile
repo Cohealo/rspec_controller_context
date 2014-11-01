@@ -4,4 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'guard-rspec'
+gem 'rspec-its'
 gem 'ruby_gntp', require: false
