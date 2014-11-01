@@ -61,6 +61,27 @@ RSpec.describe RspecControllerContext::ControllerHelper do
       #   describe "GET show" do
       #     ...
       it "should try to guess from the example's description"
+
+      context "when action is a standard REST action" do
+        {
+          index: :get,
+          new: :get,
+          create: :post,
+          edit: :get,
+          update: :put, # or is it PATCH these days?
+          destroy: :delete,
+        }.each do |action, method|
+          it "should guess the method when action is #{action}" do
+            expect(example).to receive(method)
+            example.make_request action: action
+          end
+        end
+      end
+
+      it "should raise without being able to guess" do
+        expect {example.make_request}.
+          to raise_error RspecControllerContext::IncompleteRequestError
+      end
     end
 
     context 'when action not defined' do
