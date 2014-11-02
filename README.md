@@ -20,7 +20,7 @@ two methods,
 * a class method on an example group called `request_config`,
 * and an instance method on an example called `make_request`.
 
-Its a better way to deal with request params then writting methods like
+It's a better way to deal with request params then writting methods like
 `def valid_options; ...; end` in every controller spec.
 
 ## Installation
@@ -185,6 +185,37 @@ It can also be passed any of the config (besides procs) as
 ## make_request for integration or request specs
 
 TBD
+
+## buildable_config
+
+The pattern of building configs isn't useful for just controllers. A
+class method called `buildable_config` exists which can be used to build
+configuration in the same way as `request_config` (in fact,
+`request_config` is implemented by `buildable_config`). Here's and
+example:
+
+    RSpec.describe QueryBuilder do
+      buildable_config :query_options
+
+      context "with filter" do
+        query_options filter: 'blue'
+
+        it "should filter" do
+          subject.new query_options
+        end
+      end
+    end
+
+In this example, the `buildable_config` call created two methods: a
+class method called `query_options` and an instance method called
+`query_options`.
+
+The class method works just like `request_options` above, it can take
+hash and block arguments. It is inheritable.
+
+The instance method returns the config as defined for the given example.
+Any blocks in the config are eval'ed in the scope of the example (so
+`let`s and `subject` will work inside the block).
 
 ## Planned features
 

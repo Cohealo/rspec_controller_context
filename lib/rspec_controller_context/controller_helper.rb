@@ -1,12 +1,22 @@
 module RspecControllerContext
   class IncompleteRequestError < StandardError; end
 
-  # Methods for configuring a request.
+  # Mixin for rails controller specs. Sets up a buildable config called
+  # request_config and provides a method to fire off requests called
+  # make_request.
   module ControllerHelper
     def self.included(mod)
       mod.send :buildable_config, :request_config
     end
 
+    # Make a call to the ActionController::TestCase stuff based on the request
+    # config. Expects :action and :method to be set at least, although in some
+    # cases we can guess these values.
+    #
+    # If an :ajax option has a true value, it'll make a xml_http_request.
+    #
+    # All other options are considered parameters.
+    #
     def make_request(options={}, &block)
       config = request_config options, &block
 
