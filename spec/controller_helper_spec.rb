@@ -1,8 +1,18 @@
-RSpec.describe RspecControllerContext::ControllerDriver do
+RSpec.describe RspecControllerContext::ControllerHelper do
   let(:example_group) do
-    Class.new { include RspecControllerContext::ControllerDriver }
+    Class.new do
+      extend RspecControllerContext
+      include RspecControllerContext::ControllerHelper
+    end
   end
   subject(:example) { example_group.new }
+
+  describe "included hook" do
+    it "should setup buildable option" do
+      expect(example_group).to respond_to :request_config
+      expect(example).to respond_to :request_config
+    end
+  end
 
   describe "#make_request" do
     it "should make request" do
@@ -51,6 +61,27 @@ RSpec.describe RspecControllerContext::ControllerDriver do
       #   describe "GET show" do
       #     ...
       it "should try to guess from the example's description"
+
+      context "when action is a standard REST action" do
+        {
+          index: :get,
+          new: :get,
+          create: :post,
+          edit: :get,
+          update: :put, # or is it PATCH these days?
+          destroy: :delete,
+        }.each do |action, method|
+          it "should guess the method when action is #{action}" do
+            expect(example).to receive(method)
+            example.make_request action: action
+          end
+        end
+      end
+
+      it "should raise without being able to guess" do
+        expect {example.make_request}.
+          to raise_error RspecControllerContext::IncompleteRequestError
+      end
     end
 
     context 'when action not defined' do
