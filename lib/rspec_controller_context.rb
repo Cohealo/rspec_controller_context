@@ -1,6 +1,4 @@
-require "active_support/concern"
-require "active_support/core_ext/class"
-require "active_support/core_ext/hash"
+require "active_support/all"
 
 require File.expand_path("../rspec_controller_context/configuration", __FILE__)
 require File.expand_path("../rspec_controller_context/controller_helper", __FILE__)
