@@ -195,6 +195,7 @@ configuration in the same way as `request_config` (in fact,
 example:
 
     RSpec.describe QueryBuilder do
+      extend RspecControllerContext
       buildable_config :query_options
 
       context "with filter" do

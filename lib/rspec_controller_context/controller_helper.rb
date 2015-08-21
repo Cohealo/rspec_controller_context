@@ -6,6 +6,7 @@ module RspecControllerContext
   # make_request.
   module ControllerHelper
     def self.included(mod)
+      mod.extend RspecControllerContext
       mod.send :buildable_config, :request_config
     end
 
